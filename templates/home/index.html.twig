@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Voici tous les restaurants</h1>
+    {% for restaurant in restaurants %}
+        <ul>
+            <li>Nom du resto : {{ restaurant.name }} </li>
+            <li>Adresse du resto : {{ restaurant.address.name }} {{ restaurant.address.zip }} {{ restaurant.address.city }}</li>
+        </ul>
+
+
+    {% endfor %}
+</div>
+{% endblock %}
