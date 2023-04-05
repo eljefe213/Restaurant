@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IngredientController!{% endblock %}
+
+{% block body %}
+    <h1>Ajouter</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ path('app_ingredient_create') }}">Ajouter</a></li>
+        </ul>
+    </nav>
+    <section>
+        <ul>
+            {% for ingredient in ingredients %}
+                <li>{{ ingredient.name }} </li>
+            {% endfor %}
+        </ul>
+
+    </section>
+{% endblock %}

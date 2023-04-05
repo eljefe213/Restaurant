@@ -143,5 +143,4 @@ class Restaurant
         return $this->getName();
     }
 
-
 }

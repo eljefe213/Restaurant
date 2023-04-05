@@ -15,10 +15,15 @@
                 <li>Nom du resto : {{ restaurant.name }} </li>
                 <li>Adresse du resto
                     : {{ restaurant.address.name }} {{ restaurant.address.zip }} {{ restaurant.address.city }}</li>
-                <li>Info perso du restau : <a href="{{ path('app_restaurant', {"restaurant": restaurant.id}) }}">En savoir plus
+                <li>Info perso du restau : <a href="{{ path('app_restaurant', {"restaurant": restaurant.id}) }}">En
+                        savoir plus
                         !</a></li>
                 <li><a href="{{ path('app_restaurant_update', {"restaurant": restaurant.id}) }}">Modifier</a></li>
-                <li><a href="{{ path('app_restaurant_delete', {"restaurant": restaurant.id}) }}">Supprimer</a></li>
+                <form action="{{ path('app_restaurant_delete', {"restaurant": restaurant.id}) }}" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ restaurant.id) }}">
+                    <button type="submit">Supprimer</button>
+                </form>
             </ul>
         {% endfor %}
     </section>

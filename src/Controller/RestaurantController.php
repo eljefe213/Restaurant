@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class RestaurantController extends AbstractController
 {
@@ -30,7 +32,7 @@ class RestaurantController extends AbstractController
     #[Route('/restaurant', name: 'app_restaurant')]
     public function index(RestaurantRepository $restaurantRepository): Response
     {
-         $restaurants = $restaurantRepository->findAll();
+        $restaurants = $restaurantRepository->findAll();
 
         return $this->render('restaurant/index.html.twig', [
             'restaurants' => $restaurants
@@ -92,14 +94,15 @@ class RestaurantController extends AbstractController
 
     /**
      * @param Restaurant $restaurant
-     * @param Request $request
      * @return Response
      */
-    #[Route('/restaurant/delete/{restaurant}', name: 'app_restaurant_delete')]
-    public function delete(Restaurant $restaurant, Request $request): Response
+    #[Route('/restaurant/delete/{restaurant}', name: 'app_restaurant_delete', methods: ['DELETE'])]
+    public function delete(Restaurant $restaurant, CsrfTokenManagerInterface $csrfTokenManager, Request $request): Response
     {
-        $this->em->remove($restaurant);
-        $this->em->flush();
+        if ($this->isCsrfTokenValid('delete' . $restaurant->getId(), $request->get('_token'))) {
+            $this->em->remove($restaurant);
+            $this->em->flush();
+        }
 
         return $this->redirectToRoute("app_restaurant");
     }

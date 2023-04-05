@@ -3,12 +3,22 @@
 {% block title %}Hello RestaurantController!{% endblock %}
 
 {% block body %}
+
     <div>
         <h1>{{ restaurant.name }}</h1>
+        <nav>
+            <a href="{{ path('app_plat_create', {"restaurant": restaurant.id}) }}">Créer un plat</a>
+            <a href="{{ path('app_restaurant_update', {"restaurant": restaurant.id}) }}">Modifier</a>
+            <form action="{{ path('app_restaurant_delete', {"restaurant": restaurant.id}) }}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ restaurant.id) }}">
+                <button type="submit">Supprimer</button>
+            </form>
+        </nav>
         <h2>Il y {{ restaurant.plats.count }} plat(s) dans ce restau ! </h2>
         {% for plat in restaurant.plats %}
             <div>
-                <h3>{{ plat.name }}</h3>
+                <h3>{{ plat.name }} : {{ plat.price }}€</h3>
                 <ul>
                     {% for ingredient in plat.ingredients %}
                         <li>{{ ingredient.name }}</li>
