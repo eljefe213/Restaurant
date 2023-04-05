@@ -17,27 +17,20 @@ class HomeController extends AbstractController
      * @param RestaurantRepository $restaurantRepository
      * @return Response
      */
-    #[Route('/home/{plat}', name: 'app_home')]
-    public function index(Plat $plat, RestaurantRepository $restaurantRepository): Response
+    #[Route('/', name: 'app_home')]
+    public function index(RestaurantRepository $restaurantRepository): Response
     {
         $restaurants = $restaurantRepository->findAll();
-        $plats = ['burger', 'pizza', 'glace'];
 
         return $this->render('home/index.html.twig', [
             'restaurants' => $restaurants
         ]);
     }
 
-
-    #[Route('/test', name: 'app_test')]
-    public function test(RestaurantRepository $restaurantRepository): Response
+    #[Route('/chocolat', name: 'app_racine')]
+    public function superTest(): Response
     {
-        $restaurant = new Restaurant();
-        $adresse = new Address();
-        $adresse->setName('12 riue lafayette');
-        $restaurant->setName('Super nom');
-        $restaurant->setDirector('Michel');
-        $restaurant->setAddress($adresse);
+        dd("hello world");
     }
 
 

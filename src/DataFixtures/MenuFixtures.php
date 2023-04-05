@@ -98,12 +98,13 @@ class MenuFixtures extends Fixture
             ]
         ];
 
-
         foreach ($restaurantsItems as $item) {
+
             $restaurant = new Restaurant();
             $restaurant->setName($item["name"]);
             $restaurant->setAddress($item['address']);
             $restaurant->setDirector($item['director']);
+
             foreach ($item['plats'] as $name => $platItem) {
                 $plat = new Plat();
                 $plat->setName($name);
@@ -113,7 +114,7 @@ class MenuFixtures extends Fixture
                 }
                 $restaurant->addPlat($plat);
                 $manager->persist($plat);
-                $manager->persist($restaurant);
+
             }
             foreach ($item['menus'] as $menuItem) {
                 $menu = new Menu();
@@ -127,8 +128,8 @@ class MenuFixtures extends Fixture
                     }
                 }
                 $restaurant->addMenu($menu);
-                $manager->persist($menu);
             }
+              $manager->persist($restaurant);
         }
 
         $manager->flush();

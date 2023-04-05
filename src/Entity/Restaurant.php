@@ -28,7 +28,7 @@ class Restaurant
     #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: Plat::class)]
     private Collection $plats;
 
-    #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: Menu::class)]
+    #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: Menu::class, cascade: ['persist'])]
     private Collection $menus;
 
     public function __construct()
@@ -137,4 +137,11 @@ class Restaurant
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
+
+
 }

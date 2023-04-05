@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RestaurantController!{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>{{ restaurant.name }}</h1>
+        <h2>Il y {{ restaurant.plats.count }} plat(s) dans ce restau ! </h2>
+        {% for plat in restaurant.plats %}
+            <div>
+                <h3>{{ plat.name }}</h3>
+                <ul>
+                    {% for ingredient in plat.ingredients %}
+                        <li>{{ ingredient.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
